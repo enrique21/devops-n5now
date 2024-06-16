@@ -54,7 +54,13 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
-  
+
+      - name: Stop ECS task
+        id: stop-ecs-task
+        run: |
+          aws ecs list-tasks --cluster ecs_cluster_devops_challenge_n5now --container-instance 67a1788f98a242eb9222b5619d7afe07 > result.json
+          aws ecs stop-task --cluster $ECS_CLUSTER --task $(jq -r '.taskArns[0]' result.json)
+
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1.5.0
         with:
