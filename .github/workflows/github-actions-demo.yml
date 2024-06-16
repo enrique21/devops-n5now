@@ -43,7 +43,6 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          cat Dockerfile | sed -e "s|api-title|${APP}-dev|g;" | sed -e "s|api-host|${APP}-dev|g;" > DockerfileUpdated
           docker build --build-arg BRANCH_NAME=${{ github.ref_name }} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
