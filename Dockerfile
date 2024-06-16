@@ -1,6 +1,9 @@
 # Dockerfile
 FROM python:3.9-alpine
 
+ARG BRANCH_NAME
+ENV ENVIRONMENT_NAME=$BRANCH_NAME
+
 WORKDIR /app
 
 RUN apk add --no-cache shadow && \

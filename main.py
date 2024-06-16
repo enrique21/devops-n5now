@@ -1,6 +1,7 @@
 from datetime import datetime
-import pytz
 from flask import Flask
+import pytz
+import os
 
 app = Flask(__name__)
 
@@ -10,7 +11,8 @@ def datetime_local():
 
 @app.route('/')
 def hello():
-    return "Hello World (N5 Now)! (now %s)\n" % datetime_local()
+    environment_name = os.environ.get("ENVIRONMENT_NAME")
+    return f"Hello World (N5 Now)! from {environment_name} (now {datetime_local()})\n"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)
