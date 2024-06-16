@@ -67,6 +67,10 @@ jobs:
         run: |
           aws ecs list-tasks --cluster ${{ env.ECS_CLUSTER }} --container-instance 67a1788f98a242eb9222b5619d7afe07 > result.json
           aws ecs stop-task --cluster ${{ env.ECS_CLUSTER }} --task $(jq -r '.taskArns[0]' result.json)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ vars.AWS_REGION }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1.5.0
