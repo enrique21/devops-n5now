@@ -12,7 +12,7 @@ def datetime_local():
 @app.route('/')
 def hello():
     environment_name = os.environ.get("ENVIRONMENT_NAME")
-    return f"Hello World (N5 Now)! from {environment_name} (now {datetime_local()})\n"
+    return f"<font color='blue'>Hello World (N5 Now)! from <b>{environment_name}</b> (now {datetime_local()})</font>\n"
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080)
